@@ -1,107 +1,128 @@
 # Bené Aragão — Currículo Web
 
-Currículo web em **HTML5 + CSS3 puro**, sem build, sem framework. Acessibilidade WCAG 2.2 AA validável; impressão para PDF idêntica via `@media print`.
+CV web em **HTML5 + CSS3 puro**, sem build, sem framework, zero dependências em runtime.
 
-URL pretendida: <https://cv.benearagao.com.br>
+- **Acessibilidade**: WCAG 2.2 AA — ver [`ACCESSIBILITY.md`](./ACCESSIBILITY.md) para checklist auditável.
+- **Performance**: Lighthouse-ready (cache de longa duração via `.htaccess`, fontes com `display=swap`).
+- **SEO**: structured data Schema.org `Person`, Open Graph + Twitter cards, `sitemap.xml`, `robots.txt`.
+- **Print**: PDF idêntico via `@media print`, cabe em 1 página A4.
+- **Deploy**: GitHub Actions → FTP Locaweb automático em todo `push` para `main`.
+
+Produção: <https://benearagao.com.br>
+
+---
 
 ## Estrutura
 
 ```
 bene-cv/
-├── index.html         # CV completo, HTML5 semântico
-├── styles.css         # Tokens, layout 2 colunas, print
-├── assets/
-│   ├── favicon.svg    # Letra "B" em SVG
-│   ├── og-image.png   # 1200x630 (gerada a partir de og-image.svg)
-│   └── og-image.svg   # Fonte do social preview
-└── README.md
+├── index.html              # CV completo, HTML5 semântico, Schema.org Person
+├── styles.css              # Tokens + layout + @media print + a11y queries
+├── .htaccess               # Gzip, cache, security headers (Apache/Locaweb)
+├── robots.txt              # Crawlers
+├── sitemap.xml             # Sitemap XML
+├── ACCESSIBILITY.md        # Checklist WCAG 2.2 AA auditável
+├── README.md
+└── assets/
+    ├── favicon.svg
+    ├── profile.jpg         # Foto 120x120 (renderizada)
+    ├── og-image.png        # 1200x630 social preview
+    └── og-image.svg        # Fonte do PNG
 ```
+
+---
 
 ## Rodar localmente
 
-Como não há build, qualquer uma destas opções funciona:
-
 ```bash
-# Opção 1 — abrir direto no navegador
-open index.html
-
-# Opção 2 — servidor estático (recomendado p/ testar fontes, meta tags, OG)
+# Servidor estático (recomendado para testar OG, fontes, headers)
 npx serve .
 # ou
 python3 -m http.server 8000
 ```
 
-Em seguida, abra <http://localhost:3000> (serve) ou <http://localhost:8000> (python).
+Abrir `http://localhost:3000` ou `http://localhost:8000`.
 
-## Gerar PDF (a partir do navegador)
+---
 
-1. Abra `index.html` no Chrome ou Edge.
-2. `Ctrl/Cmd + P` para abrir a impressão.
-3. **Destino**: "Salvar como PDF".
-4. **Layout**: Retrato. **Tamanho do papel**: A4. **Margens**: Padrão.
-5. **Mais ajustes** → marque **"Gráficos de plano de fundo"** (preserva a cor accent do selo W3Cx e dos marcadores).
-6. Salvar.
+## Gerar PDF a partir do navegador
 
-O layout de 2 colunas é mantido, e o arquivo cabe em **uma página A4**.
+1. Abrir `index.html` no Chrome ou Edge.
+2. Clicar no botão **"Baixar PDF"** no canto superior direito (ou `Cmd/Ctrl + P`).
+3. Destino: **Salvar como PDF**. Layout: Retrato. Papel: A4. Margens: Padrão.
+4. **Mais ajustes** → marcar **"Gráficos de plano de fundo"** (preserva a accent do selo W3Cx).
+5. Salvar.
+
+Cabe em **uma página A4**.
+
+---
 
 ## Validar acessibilidade
 
 ```bash
-# Lighthouse (Chrome DevTools → Lighthouse → Accessibility)
-# Meta: 100/100
+# 1. Lighthouse (Chrome DevTools → Lighthouse → Accessibility)
+#    Meta: 100/100
 
-# axe DevTools (extensão Chrome/Firefox)
+# 2. axe DevTools (extensão Chrome/Firefox) → 0 violações
 
-# Validação HTML
+# 3. Validação HTML
 npx html-validate index.html
 ```
 
-Cheque também:
-- Navegação só por teclado (Tab/Shift+Tab/Enter).
-- Skip link aparece ao focar o primeiro elemento (`Tab` no topo da página).
-- Leitor de tela (VoiceOver no macOS: `Cmd + F5`; NVDA no Windows).
+Testes manuais essenciais:
+- Navegação só por teclado (Tab/Shift+Tab/Enter); o **skip link** aparece no primeiro Tab.
+- Foco visível em todos os elementos interativos.
+- Leitor de tela (VoiceOver macOS: `Cmd+F5` · NVDA Windows).
+- `prefers-reduced-motion`: animações desativadas.
+- `forced-colors: active` (Windows High Contrast): contrastes preservados.
 
-## Deploy na Vercel
+Ver [`ACCESSIBILITY.md`](./ACCESSIBILITY.md) para a auditoria completa.
 
-A forma mais simples (sem CLI):
+---
 
-1. Faça `git init` na pasta `bene-cv/` e suba para um repo no GitHub.
-2. Entre em <https://vercel.com/new> e importe o repositório.
-3. Framework preset: **Other**. Build command: **(vazio)**. Output dir: **`./`**.
-4. Deploy.
+## Deploy
 
-Via Vercel CLI:
+### Automático (recomendado)
+
+A cada `git push` na `main` que toque `bene-cv/**`, o workflow `.github/workflows/deploy.yml` faz o upload via FTP para a Locaweb. Configurar uma vez:
+
+1. **Settings → Secrets and variables → Actions** no repo do GitHub.
+2. Adicionar dois secrets:
+   - `FTP_USERNAME` → `benearagao8`
+   - `FTP_PASSWORD` → senha FTP da Locaweb
+3. `git push` na `main` dispara o deploy.
+
+### Manual (fallback)
 
 ```bash
-npm i -g vercel
-cd bene-cv
-vercel        # primeira vez: aceitar todas as defaults (Other / sem build)
-vercel --prod # promove para produção
+./deploy-locaweb.sh
 ```
 
-## Apontar `cv.benearagao.com.br` (DNS)
+### Limpeza de cache pós-deploy
 
-No painel da Vercel, em **Project → Settings → Domains**:
+- Navegador: `Cmd+Shift+R` / `Ctrl+Shift+R`.
+- `.htaccess` já gerencia `Cache-Control` com versionamento via `?v=` em `styles.css`.
 
-1. Adicione `cv.benearagao.com.br`.
-2. A Vercel mostrará um `CNAME` a configurar:
-   ```
-   Tipo:   CNAME
-   Host:   cv
-   Aponta: cname.vercel-dns.com
-   TTL:    3600 (ou padrão)
-   ```
-3. No painel DNS do seu registrador de `benearagao.com.br` (Registro.br, Cloudflare, etc.), adicione o registro acima.
-4. Aguarde a propagação (até ~30 min). A Vercel emite o certificado TLS automaticamente.
+---
 
-> Se você usa Cloudflare, deixe o registro como **"DNS only"** (nuvem cinza) durante a primeira validação, depois pode ativar o proxy se desejar.
+## Cache busting
+
+Quando alterar `styles.css`, atualizar a query string no `<link>`:
+
+```html
+<link rel="stylesheet" href="styles.css?v=YYYYMMDD">
+```
+
+Isso força navegadores a baixar a nova versão imediatamente, mesmo com `.htaccess` aplicando cache de 1 ano.
+
+---
 
 ## Regenerar o `og-image.png`
 
-A versão atual foi gerada a partir do SVG via Chrome headless:
+A partir do SVG (após qualquer edição em `assets/og-image.svg`):
 
 ```bash
-cd assets
+cd bene-cv/assets
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
   --headless --disable-gpu --hide-scrollbars \
   --window-size=1200,630 \
@@ -109,12 +130,27 @@ cd assets
   "file://$PWD/og-image.svg"
 ```
 
-Para mudar a arte: edite `assets/og-image.svg` e rode o comando acima novamente. Para validar como aparece no LinkedIn / Twitter / WhatsApp use <https://www.opengraph.xyz>.
+Validar preview em <https://www.opengraph.xyz>.
+
+---
 
 ## Decisões de design
 
-- **Cores**: `--accent: #1D4ED8` (azul tech) sobre fundo branco — contraste 7.66:1, AAA para texto normal.
-- **Tipografia**: Inter (sans-serif) + JetBrains Mono (stack/URLs) via Google Fonts com `display=swap`.
-- **Sem ícones decorativos**: apenas os 5 ícones de contato na sidebar, todos `aria-hidden="true"`.
-- **Sem barras de progresso de skill**: agrupadas por categoria via `<dl>`, mais honestas e mais acessíveis.
-- **Selo W3Cx**: borda accent + fundo `--bg-subtle`, ponto focal visual da credencial mais rara do CV.
+| Decisão | Por quê |
+|---|---|
+| **HTML5 + CSS3 puro, zero build** | Coerência com o pitch de a11y e domínio fundamental. Deploy é cópia de arquivos. Sobrevive a qualquer mudança de stack. |
+| **Accent `#0F766E` (teal)** | Contraste 5.50:1 sobre `#FFF` — AA texto normal. `theme-color` alinhado. |
+| **Tipografia: Inter + JetBrains Mono** | Inter para corpo (legibilidade Web), Mono para badges/códigos. Features OpenType: kerning + tabular-nums em datas. |
+| **Sem ícones decorativos no corpo** | Reduz ruído cognitivo. Os 5 ícones de contato são `aria-hidden="true"`. |
+| **Skills via `<dl>`, sem barras** | Honesto e acessível. Barras de "85% de Figma" são teatro. |
+| **Selo W3Cx como verified seal** | Check em círculo accent, fundo gradient sutil — visualmente lê como credencial verificada. |
+| **Tagline highlights como chips** | Aumenta escaneabilidade, hierarquia mais rica que separadores de bullet. |
+| **`prefers-reduced-motion` + `forced-colors`** | Não é decoração — é WCAG 2.3.3 (Success Criterion) e suporte ao High Contrast Mode do Windows. |
+
+---
+
+## Stack & versionamento
+
+- Sem `package.json`. Tudo é estático.
+- HTTP de produção servido pelo Apache da Locaweb (`.htaccess` cuida do resto).
+- Versionamento: Git. Branch `main` = produção.

@@ -38,7 +38,7 @@
 
   <!-- Rodapé -->
   <g transform="translate(72,560)">
-    <text x="0" y="0" font-family="JetBrains Mono, Consolas, monospace" font-size="18" font-weight="400" fill="#1D4ED8">cv.benearagao.com.br</text>
+    <text x="0" y="0" font-family="JetBrains Mono, Consolas, monospace" font-size="18" font-weight="400" fill="#1D4ED8">benearagao.com.br</text>
     <text x="1056" y="0" text-anchor="end" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="18" font-weight="500" fill="#6B6B6B">Brasília · DF · Brasil</text>
   </g>
 </svg>

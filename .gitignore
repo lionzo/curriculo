@@ -8,3 +8,9 @@ Thumbs.db
 
 # Claude
 .claude/
+
+# Local-only deploy script (contém usuário FTP — senha vai em GitHub Secrets)
+deploy-locaweb.sh
+
+# Test dependencies (instaladas localmente, não versionadas)
+tests/node_modules/
