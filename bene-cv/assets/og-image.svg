@@ -6,6 +6,9 @@
       <stop offset="0" stop-color="#FFFFFF"/>
       <stop offset="1" stop-color="#F4F6FB"/>
     </linearGradient>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono&amp;display=swap');
+    </style>
   </defs>
 
   <rect width="1200" height="630" fill="url(#bg)"/>
@@ -27,8 +30,7 @@
   <g transform="translate(72,180)">
     <text x="0" y="0" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="36" font-weight="500" fill="#6B6B6B" letter-spacing="3">SENIOR PRODUCT DESIGNER</text>
 
-    <text x="0" y="100" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="84" font-weight="700" fill="#1A1A1A" letter-spacing="-2">Benedito Aragão</text>
-    <text x="565" y="100" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="48" font-weight="400" fill="#6B6B6B" letter-spacing="-0.5">"Bené"</text>
+    <text x="0" y="100" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="84" font-weight="700" fill="#1A1A1A" letter-spacing="-2">Benedito Aragão<tspan dx="24" font-size="48" font-weight="400" fill="#6B6B6B" letter-spacing="-0.5">“Bené”</tspan></text>
 
     <text x="0" y="170" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="32" font-weight="500" fill="#4A4A4A">UX/UI · IA aplicada · Acessibilidade certificada (W3Cx)</text>
 

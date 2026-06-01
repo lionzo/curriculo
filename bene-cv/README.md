@@ -128,13 +128,11 @@ Isso força navegadores a baixar a nova versão imediatamente, mesmo com `.htacc
 A partir do SVG (após qualquer edição em `assets/og-image.svg`):
 
 ```bash
-cd bene-cv/assets
-/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
-  --headless --disable-gpu --hide-scrollbars \
-  --window-size=1200,630 \
-  --screenshot=og-image.png \
-  "file://$PWD/og-image.svg"
+cd tests && node regen-og.js
+#   → bene-cv/assets/og-image.png (1200×630)
 ```
+
+> O `og-image.svg` importa a fonte **Inter** via `@import`. O script usa o Playwright e **aguarda a fonte carregar** antes do screenshot — não use `chrome --screenshot` direto, pois ele captura antes da fonte chegar e o texto sai com métricas erradas (causa de sobreposição). Requer rede para buscar a fonte.
 
 Validar preview em <https://www.opengraph.xyz>.
 
