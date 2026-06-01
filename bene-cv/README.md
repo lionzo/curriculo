@@ -7,6 +7,7 @@ CV web em **HTML5 + CSS3 puro**, sem build, sem framework, zero dependências em
 - **SEO**: structured data Schema.org `Person`, Open Graph + Twitter cards, `sitemap.xml`, `robots.txt`.
 - **Print**: PDF idêntico via `@media print`, cabe em 1 página A4.
 - **Deploy**: GitHub Actions → FTP Locaweb automático em todo `push` para `main`.
+- **Analytics**: Cloudflare Web Analytics — cookieless, sem banner LGPD, script deferido (~13KB).
 
 Produção: <https://benearagao.com.br>
 
