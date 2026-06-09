@@ -1,5 +1,5 @@
 /**
- * Regenera bene-cv/assets/og-image.png a partir do og-image.svg.
+ * Regenerates assets/og-image.png from assets/og-image.svg.
  *
  * Rodar (a partir de tests/):  node regen-og.js
  *
@@ -13,8 +13,8 @@ const { chromium } = require('playwright');
 const path = require('path');
 
 (async () => {
-  const svg = 'file://' + path.resolve(__dirname, '../bene-cv/assets/og-image.svg');
-  const out = path.resolve(__dirname, '../bene-cv/assets/og-image.png');
+  const svg = 'file://' + path.resolve(__dirname, '../assets/og-image.svg');
+  const out = path.resolve(__dirname, '../assets/og-image.png');
 
   const browser = await chromium.launch();
   const ctx = await browser.newContext({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });

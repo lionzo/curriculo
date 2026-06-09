@@ -2,7 +2,7 @@
  * Teste automatizado de navegação por teclado
  *
  * Rodar:
- *   1. Servidor: cd ../bene-cv && python3 -m http.server 4321
+ *   1. Servidor: python3 -m http.server 4321
  *   2. Teste:    node keyboard.spec.js
  *
  * Saída: relatório por critério WCAG 2.4.x e 2.1.x.
@@ -83,7 +83,7 @@ function hasVisibleFocus(info) {
     await page.goto(BASE_URL, { waitUntil: 'networkidle' });
   } catch (e) {
     console.log(`${RED}Falha ao carregar ${BASE_URL}: ${e.message}${RESET}`);
-    console.log(`${YELLOW}O servidor está rodando? cd bene-cv && python3 -m http.server 4321${RESET}`);
+    console.log(`${YELLOW}O servidor está rodando? python3 -m http.server 4321${RESET}`);
     process.exit(1);
   }
 

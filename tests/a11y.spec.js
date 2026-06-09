@@ -2,7 +2,7 @@
  * Teste automatizado de acessibilidade (axe-core)
  *
  * Rodar:
- *   1. Servidor: cd ../bene-cv && python3 -m http.server 4321
+ *   1. Servidor: python3 -m http.server 4321
  *   2. Teste:    node a11y.spec.js
  *
  * Escaneia a página com axe-core nas regras WCAG 2.0/2.1/2.2 níveis A e AA.
@@ -53,7 +53,7 @@ const impactColor = {
     await page.goto(BASE_URL, { waitUntil: 'networkidle' });
   } catch (e) {
     console.log(`${RED}Falha ao carregar ${BASE_URL}: ${e.message}${RESET}`);
-    console.log(`${YELLOW}O servidor está rodando? cd bene-cv && python3 -m http.server 4321${RESET}`);
+    console.log(`${YELLOW}O servidor está rodando? python3 -m http.server 4321${RESET}`);
     await browser.close();
     process.exit(1);
   }

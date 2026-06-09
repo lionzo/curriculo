@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lionzo.github.io/curriculo/sitemap.xml
