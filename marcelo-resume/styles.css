@@ -1,5 +1,5 @@
 /* =============================================================
-   Bené Aragão · CV
+   Marcelo Lionço Mendes · CV
    HTML5 + CSS3 puro, sem dependências.
    Sistema de tokens via CSS variables · WCAG 2.2 AA validado.
    ============================================================= */
@@ -9,7 +9,7 @@
   --ink-primary:   #1A1A1A; /* 17.40:1 vs #FFF — AAA */
   --ink-secondary: #4A4A4A; /* 8.86:1 vs #FFF — AAA */
   --ink-tertiary:  #6B6B6B; /* 5.33:1 vs #FFF — AA, meta-info legível */
-  --accent:        #0F766E; /* teal · 5.47:1 vs #FFF — AA normal text */
+  --accent:        #956AFE;
   --bg:            #FFFFFF;
   --bg-subtle:     #F9F9F9;
   --border:        #D4D4D4; /* 1.48:1 — APENAS divisores decorativos (isentos de 1.4.11) */
@@ -351,7 +351,7 @@ ul { padding: 0; margin: 0; list-style: none; }
   text-underline-offset: 2px;
 }
 
-/* W3Cx badge =============================================== */
+/* Badge ===================================================== */
 .badge {
   position: relative;
   border: 1px solid var(--accent);
@@ -798,7 +798,7 @@ ul { padding: 0; margin: 0; list-style: none; }
   .plain-list { gap: 2pt; }
   .plain-list li { line-height: 1.3; }
 
-  /* Selo W3Cx compacto mas visível */
+  /* Compact but visible badge */
   .badge {
     border: 1.2pt solid var(--accent);
     background: #F4F4F4;
@@ -876,4 +876,3 @@ ul { padding: 0; margin: 0; list-style: none; }
   a:visited { color: VisitedText; }
   :focus-visible { outline: 2px solid Highlight; outline-offset: 2px; }
 }
-
