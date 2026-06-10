@@ -113,6 +113,15 @@
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <div class="page-actions">
+    <label class="language-control" for="language-select">
+      <span class="visually-hidden" data-ui="languageLabel">Language</span>
+      <select id="language-select" class="language-select" aria-label="Select resume language">
+        <option value="en">EN</option>
+        <option value="pt-BR">PT-BR</option>
+        <option value="es">ES</option>
+      </select>
+    </label>
+
     <button
       type="button"
       class="action-btn action-print"
@@ -365,8 +374,469 @@
     (function () {
       var btn = document.querySelector('.action-share');
       var feedback = document.getElementById('share-feedback');
-      if (!btn || !feedback) return;
+      var languageSelect = document.getElementById('language-select');
+      if (!btn || !feedback || !languageSelect) return;
       var timer;
+      var defaultLang = 'en';
+      var supportedLangs = ['en', 'pt-BR', 'es'];
+      var translations = {
+        en: {
+          lang: 'en',
+          title: 'Marcelo Lionço Mendes — Senior Product Designer · Product Designer · UX/UI Designer',
+          description: 'Resume of Marcelo Lionço Mendes — Product Designer with 6+ years of experience designing digital products across education, SaaS, financial services, content platforms, and technology environments.',
+          shareText: 'Resume of Marcelo Lionço Mendes',
+          copied: 'Link copied.',
+          copyFallback: 'Copy the link from the address bar.',
+          ui: {
+            languageLabel: 'Language',
+            skip: 'Skip to main content',
+            print: 'Download PDF',
+            printAria: 'Print or save this resume as PDF',
+            share: 'Share',
+            shareAria: 'Share this resume'
+          },
+          profileAlt: 'Photo of Marcelo Lionço Mendes',
+          headerHeadline: 'Senior Product Designer · Product Designer · UX/UI Designer',
+          location: 'Curitiba, Paraná, Brazil',
+          contactTitle: 'Contact',
+          languagesTitle: 'Languages',
+          skillsTitle: 'Core Skills',
+          certTitle: 'Certifications',
+          educationTitle: 'Education',
+          summaryLabel: 'Professional summary',
+          experienceTitle: 'Professional Experience',
+          additionalTitle: 'Additional Information',
+          languageItems: [
+            ['English', 'Full Professional'],
+            ['Spanish', 'Limited Working']
+          ],
+          skillItems: [
+            ['Product Design', 'End-to-End Product Design · Product Thinking · Product Discovery · UX Strategy · User-Centered Design'],
+            ['Research & Validation', 'User Interviews · Usability Evaluation · User Flows · Journey Mapping · Hypothesis Validation'],
+            ['Design Execution', 'Interaction Design · UX/UI Design · Wireframing · Prototyping · Mobile Design · Design Systems · Information Architecture'],
+            ['Collaboration', 'Stakeholder Management · Cross-functional Collaboration · Product & Engineering Partnership · Design Handoff'],
+            ['Tools', 'Figma · FigJam · Jira']
+          ],
+          educationItems: [
+            ['Postgraduate Degree in Project Management', 'Pontifícia Universidade Católica do Paraná · 2014–2016'],
+            ['Technology Degree in Systems Analysis and Development', 'Faculdade Educacional Araucária · 2009–2012']
+          ],
+          summary: [
+            'Product Designer with 6+ years of experience designing digital products across education, SaaS, financial services, content platforms, and technology environments. Experienced in leading design initiatives from discovery through delivery, collaborating closely with product managers, engineers, and stakeholders to create intuitive and scalable digital experiences.',
+            'Strong background in UX strategy, interaction design, wireframing, prototyping, usability, and design systems. Combines a systems-thinking mindset with a technical foundation acquired through previous infrastructure and support roles, enabling effective collaboration with engineering teams and informed product decision-making.',
+            'Experienced in remote and international environments, balancing user needs, business objectives, and technical constraints to deliver impactful product solutions.'
+          ],
+          highlights: ['6+ years in Product Design', 'Remote and international environments', 'Product, engineering, and stakeholder collaboration'],
+          jobs: [
+            {
+              title: 'Chop Dawg · Product Designer',
+              meta: 'Oct 2025 – Present · Philadelphia, United States (Remote)',
+              bullets: [
+                'Contribute to end-to-end product design initiatives across multiple digital products and client-facing platforms.',
+                'Collaborate with product managers, developers, and stakeholders to design scalable and user-centered experiences.',
+                'Participate in discovery activities, interface design, workflow definition, and usability improvements.',
+                'Create wireframes, user flows, prototypes, and high-fidelity designs that support product goals and implementation requirements.',
+                'Work in an international and fully remote environment alongside multidisciplinary teams.'
+              ]
+            },
+            {
+              title: 'Fluency Academy · Product Designer | UX Designer',
+              meta: 'Dec 2021 – Apr 2025',
+              bullets: [
+                'Designed digital learning experiences for educational products serving a large user base.',
+                'Collaborated closely with product managers, developers, and business stakeholders throughout the product lifecycle.',
+                'Participated in discovery initiatives, helping identify user needs and opportunities for product improvement.',
+                'Created user flows, wireframes, prototypes, and high-fidelity interfaces for web and mobile experiences.',
+                'Contributed to usability improvements, platform consistency, and design decision-making.',
+                'Worked directly with development teams during handoff processes, documenting design decisions and ensuring implementation clarity.'
+              ]
+            },
+            {
+              title: 'Pixelwolf · Interface Designer',
+              meta: 'Jul 2019 – Dec 2021 · Curitiba, Brazil',
+              bullets: [
+                'Designed digital products for clients across multiple industries, including news portals, banking applications, and financial systems.',
+                'Created wireframes, interface layouts, and interaction patterns for desktop and mobile platforms.',
+                'Collaborated with multidisciplinary teams to transform business requirements into intuitive user experiences.',
+                'Contributed to design consistency through reusable patterns and design system practices.',
+                'Supported implementation efforts through developer collaboration and design validation.'
+              ]
+            },
+            {
+              title: 'Grupo Marista · Support Analyst',
+              meta: 'Apr 2013 – Jul 2018',
+              bullets: [
+                'Participated in infrastructure planning and technical project execution.',
+                'Managed network equipment configuration, systems monitoring, and user support operations.',
+                'Maintained server and workstation environments while ensuring operational stability.',
+                'Developed strong analytical, systems-thinking, and problem-solving capabilities that later supported product design activities.'
+              ]
+            },
+            {
+              title: 'Gerdau S.A. · Support Analyst',
+              meta: 'May 2011 – Apr 2013',
+              bullets: [
+                'Provided technical support for internal systems and infrastructure environments.',
+                'Maintained computer environments and network equipment.',
+                'Assisted users and supported operational continuity across business areas.'
+              ]
+            }
+          ],
+          additional: [
+            '6+ years of experience in Product Design, UX Design, and Digital Product Development.',
+            'Experience working with distributed and international teams.',
+            'Strong collaboration with product managers, developers, and stakeholders.',
+            'Technical background in infrastructure and systems, providing a unique perspective on product development and implementation.',
+            'Experience documenting design decisions and supporting developer handoff processes.'
+          ],
+          footer: 'Marcelo Lionço Mendes · Curitiba, Paraná, Brazil'
+        },
+        'pt-BR': {
+          lang: 'pt-BR',
+          title: 'Marcelo Lionço Mendes — Designer de Produto Sênior · Product Designer · UX/UI Designer',
+          description: 'Currículo de Marcelo Lionço Mendes — Product Designer com mais de 6 anos de experiência criando produtos digitais para educação, SaaS, serviços financeiros, plataformas de conteúdo e tecnologia.',
+          shareText: 'Currículo de Marcelo Lionço Mendes',
+          copied: 'Link copiado.',
+          copyFallback: 'Copie o link da barra de endereços.',
+          ui: {
+            languageLabel: 'Idioma',
+            skip: 'Pular para o conteúdo principal',
+            print: 'Baixar PDF',
+            printAria: 'Imprimir ou salvar este currículo como PDF',
+            share: 'Compartilhar',
+            shareAria: 'Compartilhar este currículo'
+          },
+          profileAlt: 'Foto de Marcelo Lionço Mendes',
+          headerHeadline: 'Designer de Produto Sênior · Product Designer · UX/UI Designer',
+          location: 'Curitiba, Paraná, Brasil',
+          contactTitle: 'Contato',
+          languagesTitle: 'Idiomas',
+          skillsTitle: 'Habilidades principais',
+          certTitle: 'Certificações',
+          educationTitle: 'Formação',
+          summaryLabel: 'Resumo profissional',
+          experienceTitle: 'Experiência profissional',
+          additionalTitle: 'Informações adicionais',
+          languageItems: [
+            ['Inglês', 'Proficiência profissional plena'],
+            ['Espanhol', 'Proficiência profissional limitada']
+          ],
+          skillItems: [
+            ['Design de Produto', 'Design de produto de ponta a ponta · Product Thinking · Discovery de produto · Estratégia de UX · Design centrado no usuário'],
+            ['Pesquisa e validação', 'Entrevistas com usuários · Avaliação de usabilidade · Fluxos de usuário · Mapeamento de jornadas · Validação de hipóteses'],
+            ['Execução de design', 'Design de interação · UX/UI Design · Wireframes · Prototipagem · Design para mobile · Design Systems · Arquitetura da informação'],
+            ['Colaboração', 'Gestão de stakeholders · Colaboração multidisciplinar · Parceria com produto e engenharia · Handoff de design'],
+            ['Ferramentas', 'Figma · FigJam · Jira']
+          ],
+          educationItems: [
+            ['Pós-graduação em Gestão de Projetos', 'Pontifícia Universidade Católica do Paraná · 2014–2016'],
+            ['Tecnólogo em Análise e Desenvolvimento de Sistemas', 'Faculdade Educacional Araucária · 2009–2012']
+          ],
+          summary: [
+            'Product Designer com mais de 6 anos de experiência criando produtos digitais para educação, SaaS, serviços financeiros, plataformas de conteúdo e tecnologia. Atua na condução de iniciativas de design da descoberta à entrega, colaborando de perto com product managers, engenharia e stakeholders para criar experiências digitais intuitivas e escaláveis.',
+            'Tem forte experiência em estratégia de UX, design de interação, wireframes, prototipagem, usabilidade e design systems. Combina visão sistêmica com uma base técnica construída em funções anteriores de infraestrutura e suporte, o que facilita a colaboração com times de engenharia e decisões de produto mais bem fundamentadas.',
+            'Tem experiência em ambientes remotos e internacionais, equilibrando necessidades dos usuários, objetivos de negócio e restrições técnicas para entregar soluções de produto relevantes.'
+          ],
+          highlights: ['Mais de 6 anos em Product Design', 'Experiência remota e internacional', 'Parceria com produto, engenharia e stakeholders'],
+          jobs: [
+            {
+              title: 'Chop Dawg · Product Designer',
+              meta: 'Out 2025 – Atual · Filadélfia, Estados Unidos (remoto)',
+              bullets: [
+                'Contribui com iniciativas de design de produto de ponta a ponta em diferentes produtos digitais e plataformas voltadas a clientes.',
+                'Colabora com product managers, desenvolvedores e stakeholders para desenhar experiências escaláveis e centradas no usuário.',
+                'Participa de atividades de discovery, design de interface, definição de fluxos e melhorias de usabilidade.',
+                'Cria wireframes, fluxos de usuário, protótipos e telas de alta fidelidade alinhados aos objetivos do produto e às necessidades de implementação.',
+                'Atua em um ambiente internacional e totalmente remoto, junto a equipes multidisciplinares.'
+              ]
+            },
+            {
+              title: 'Fluency Academy · Product Designer | UX Designer',
+              meta: 'Dez 2021 – Abr 2025',
+              bullets: [
+                'Desenhou experiências digitais de aprendizagem para produtos educacionais com uma ampla base de usuários.',
+                'Colaborou de perto com product managers, desenvolvedores e stakeholders de negócio ao longo do ciclo de vida do produto.',
+                'Participou de iniciativas de discovery, ajudando a identificar necessidades dos usuários e oportunidades de evolução do produto.',
+                'Criou fluxos de usuário, wireframes, protótipos e interfaces de alta fidelidade para experiências web e mobile.',
+                'Contribuiu para melhorias de usabilidade, consistência da plataforma e decisões de design.',
+                'Trabalhou diretamente com equipes de desenvolvimento nos processos de handoff, documentando decisões de design e trazendo clareza para a implementação.'
+              ]
+            },
+            {
+              title: 'Pixelwolf · Designer de Interfaces',
+              meta: 'Jul 2019 – Dez 2021 · Curitiba, Brasil',
+              bullets: [
+                'Desenhou produtos digitais para clientes de diferentes setores, incluindo portais de notícias, aplicações bancárias e sistemas financeiros.',
+                'Criou wireframes, layouts de interface e padrões de interação para desktop e mobile.',
+                'Colaborou com equipes multidisciplinares para transformar requisitos de negócio em experiências de usuário intuitivas.',
+                'Contribuiu para a consistência visual e de uso por meio de padrões reutilizáveis e práticas de design system.',
+                'Apoiou a implementação por meio de colaboração com desenvolvedores e validação de design.'
+              ]
+            },
+            {
+              title: 'Grupo Marista · Analista de Suporte',
+              meta: 'Abr 2013 – Jul 2018',
+              bullets: [
+                'Participou do planejamento de infraestrutura e da execução de projetos técnicos.',
+                'Gerenciou configuração de equipamentos de rede, monitoramento de sistemas e operações de suporte ao usuário.',
+                'Manteve ambientes de servidores e estações de trabalho, garantindo estabilidade operacional.',
+                'Desenvolveu capacidade analítica, pensamento sistêmico e repertório de resolução de problemas que depois passaram a apoiar sua atuação em design de produto.'
+              ]
+            },
+            {
+              title: 'Gerdau S.A. · Analista de Suporte',
+              meta: 'Mai 2011 – Abr 2013',
+              bullets: [
+                'Prestou suporte técnico a sistemas internos e ambientes de infraestrutura.',
+                'Manteve ambientes de computadores e equipamentos de rede.',
+                'Atendeu usuários e apoiou a continuidade operacional entre áreas de negócio.'
+              ]
+            }
+          ],
+          additional: [
+            'Mais de 6 anos de experiência em Product Design, UX Design e desenvolvimento de produtos digitais.',
+            'Experiência com equipes distribuídas e internacionais.',
+            'Forte colaboração com product managers, desenvolvedores e stakeholders.',
+            'Base técnica em infraestrutura e sistemas, oferecendo uma perspectiva prática sobre desenvolvimento e implementação de produtos.',
+            'Experiência documentando decisões de design e apoiando processos de handoff para desenvolvimento.'
+          ],
+          footer: 'Marcelo Lionço Mendes · Curitiba, Paraná, Brasil'
+        },
+        es: {
+          lang: 'es',
+          title: 'Marcelo Lionço Mendes — Diseñador de Producto Senior · Product Designer · UX/UI Designer',
+          description: 'CV de Marcelo Lionço Mendes — Product Designer con más de 6 años de experiencia creando productos digitales para educación, SaaS, servicios financieros, plataformas de contenido y tecnología.',
+          shareText: 'CV de Marcelo Lionço Mendes',
+          copied: 'Enlace copiado.',
+          copyFallback: 'Copia el enlace desde la barra de direcciones.',
+          ui: {
+            languageLabel: 'Idioma',
+            skip: 'Saltar al contenido principal',
+            print: 'Descargar PDF',
+            printAria: 'Imprimir o guardar este CV como PDF',
+            share: 'Compartir',
+            shareAria: 'Compartir este CV'
+          },
+          profileAlt: 'Foto de Marcelo Lionço Mendes',
+          headerHeadline: 'Diseñador de Producto Senior · Product Designer · UX/UI Designer',
+          location: 'Curitiba, Paraná, Brasil',
+          contactTitle: 'Contacto',
+          languagesTitle: 'Idiomas',
+          skillsTitle: 'Habilidades principales',
+          certTitle: 'Certificaciones',
+          educationTitle: 'Formación',
+          summaryLabel: 'Resumen profesional',
+          experienceTitle: 'Experiencia profesional',
+          additionalTitle: 'Información adicional',
+          languageItems: [
+            ['Inglés', 'Competencia profesional completa'],
+            ['Español', 'Competencia profesional limitada']
+          ],
+          skillItems: [
+            ['Diseño de Producto', 'Diseño de producto de punta a punta · Product Thinking · Discovery de producto · Estrategia UX · Diseño centrado en el usuario'],
+            ['Investigación y validación', 'Entrevistas con usuarios · Evaluación de usabilidad · Flujos de usuario · Mapeo de recorridos · Validación de hipótesis'],
+            ['Ejecución de diseño', 'Diseño de interacción · UX/UI Design · Wireframes · Prototipado · Diseño móvil · Design Systems · Arquitectura de información'],
+            ['Colaboración', 'Gestión de stakeholders · Colaboración multidisciplinaria · Trabajo con producto e ingeniería · Handoff de diseño'],
+            ['Herramientas', 'Figma · FigJam · Jira']
+          ],
+          educationItems: [
+            ['Posgrado en Gestión de Proyectos', 'Pontifícia Universidade Católica do Paraná · 2014–2016'],
+            ['Título tecnológico en Análisis y Desarrollo de Sistemas', 'Faculdade Educacional Araucária · 2009–2012']
+          ],
+          summary: [
+            'Product Designer con más de 6 años de experiencia creando productos digitales para educación, SaaS, servicios financieros, plataformas de contenido y tecnología. Ha liderado iniciativas de diseño desde discovery hasta delivery, colaborando de cerca con product managers, ingeniería y stakeholders para crear experiencias digitales intuitivas y escalables.',
+            'Cuenta con sólida experiencia en estrategia UX, diseño de interacción, wireframes, prototipado, usabilidad y design systems. Combina una mirada sistémica con una base técnica desarrollada en roles previos de infraestructura y soporte, lo que facilita la colaboración con equipos de ingeniería y decisiones de producto mejor fundamentadas.',
+            'Tiene experiencia en entornos remotos e internacionales, equilibrando necesidades de usuarios, objetivos de negocio y restricciones técnicas para entregar soluciones de producto relevantes.'
+          ],
+          highlights: ['Más de 6 años en Product Design', 'Experiencia remota e internacional', 'Trabajo con producto, ingeniería y stakeholders'],
+          jobs: [
+            {
+              title: 'Chop Dawg · Product Designer',
+              meta: 'Oct 2025 – Actualidad · Filadelfia, Estados Unidos (remoto)',
+              bullets: [
+                'Contribuye a iniciativas de diseño de producto de punta a punta en distintos productos digitales y plataformas orientadas a clientes.',
+                'Colabora con product managers, desarrolladores y stakeholders para diseñar experiencias escalables y centradas en el usuario.',
+                'Participa en actividades de discovery, diseño de interfaz, definición de flujos y mejoras de usabilidad.',
+                'Crea wireframes, flujos de usuario, prototipos y pantallas de alta fidelidad alineados con objetivos de producto y necesidades de implementación.',
+                'Trabaja en un entorno internacional y totalmente remoto junto a equipos multidisciplinarios.'
+              ]
+            },
+            {
+              title: 'Fluency Academy · Product Designer | UX Designer',
+              meta: 'Dic 2021 – Abr 2025',
+              bullets: [
+                'Diseñó experiencias digitales de aprendizaje para productos educativos con una amplia base de usuarios.',
+                'Colaboró de cerca con product managers, desarrolladores y stakeholders de negocio durante todo el ciclo de vida del producto.',
+                'Participó en iniciativas de discovery, ayudando a identificar necesidades de usuarios y oportunidades de evolución del producto.',
+                'Creó flujos de usuario, wireframes, prototipos e interfaces de alta fidelidad para experiencias web y móviles.',
+                'Contribuyó a mejoras de usabilidad, consistencia de plataforma y decisiones de diseño.',
+                'Trabajó directamente con equipos de desarrollo en procesos de handoff, documentando decisiones de diseño y aportando claridad para la implementación.'
+              ]
+            },
+            {
+              title: 'Pixelwolf · Diseñador de Interfaces',
+              meta: 'Jul 2019 – Dic 2021 · Curitiba, Brasil',
+              bullets: [
+                'Diseñó productos digitales para clientes de distintos sectores, incluyendo portales de noticias, aplicaciones bancarias y sistemas financieros.',
+                'Creó wireframes, layouts de interfaz y patrones de interacción para escritorio y móvil.',
+                'Colaboró con equipos multidisciplinarios para transformar requisitos de negocio en experiencias de usuario intuitivas.',
+                'Contribuyó a la consistencia visual y de uso mediante patrones reutilizables y prácticas de design system.',
+                'Apoyó la implementación mediante colaboración con desarrolladores y validación de diseño.'
+              ]
+            },
+            {
+              title: 'Grupo Marista · Analista de Soporte',
+              meta: 'Abr 2013 – Jul 2018',
+              bullets: [
+                'Participó en la planificación de infraestructura y ejecución de proyectos técnicos.',
+                'Gestionó la configuración de equipos de red, el monitoreo de sistemas y las operaciones de soporte a usuarios.',
+                'Mantuvo entornos de servidores y estaciones de trabajo, asegurando estabilidad operativa.',
+                'Desarrolló capacidad analítica, pensamiento sistémico y experiencia en resolución de problemas que luego apoyaron su trabajo en diseño de producto.'
+              ]
+            },
+            {
+              title: 'Gerdau S.A. · Analista de Soporte',
+              meta: 'May 2011 – Abr 2013',
+              bullets: [
+                'Brindó soporte técnico para sistemas internos y entornos de infraestructura.',
+                'Mantuvo entornos informáticos y equipos de red.',
+                'Asistió a usuarios y apoyó la continuidad operativa entre áreas de negocio.'
+              ]
+            }
+          ],
+          additional: [
+            'Más de 6 años de experiencia en Product Design, UX Design y desarrollo de productos digitales.',
+            'Experiencia con equipos distribuidos e internacionales.',
+            'Fuerte colaboración con product managers, desarrolladores y stakeholders.',
+            'Base técnica en infraestructura y sistemas, aportando una perspectiva práctica sobre desarrollo e implementación de productos.',
+            'Experiencia documentando decisiones de diseño y apoyando procesos de handoff con desarrollo.'
+          ],
+          footer: 'Marcelo Lionço Mendes · Curitiba, Paraná, Brasil'
+        }
+      };
+
+      function normalizeLang(value) {
+        var lower = (value || '').toLowerCase();
+        if (lower === 'pt' || lower === 'pt-br') return 'pt-BR';
+        if (lower === 'es') return 'es';
+        return 'en';
+      }
+
+      function setText(selector, value) {
+        var el = document.querySelector(selector);
+        if (el) el.textContent = value;
+      }
+
+      function setAttr(selector, attr, value) {
+        var el = document.querySelector(selector);
+        if (el) el.setAttribute(attr, value);
+      }
+
+      function setList(selector, values, itemRenderer) {
+        var items = document.querySelectorAll(selector);
+        values.forEach(function (value, index) {
+          if (items[index]) itemRenderer(items[index], value);
+        });
+      }
+
+      function setLocation(value) {
+        var location = document.querySelector('.header__location');
+        if (!location) return;
+        var icon = location.querySelector('.icon');
+        location.textContent = '';
+        if (icon) {
+          location.appendChild(icon);
+          location.appendChild(document.createTextNode(' '));
+        }
+        location.appendChild(document.createTextNode(value));
+      }
+
+      function applyLanguage(lang) {
+        var t = translations[lang] || translations[defaultLang];
+        document.documentElement.lang = t.lang;
+        document.title = t.title;
+        languageSelect.value = lang;
+
+        setAttr('meta[name="description"]', 'content', t.description);
+        setAttr('meta[property="og:title"]', 'content', t.title);
+        setAttr('meta[property="og:description"]', 'content', t.description);
+        setAttr('meta[name="twitter:title"]', 'content', t.title);
+        setAttr('meta[name="twitter:description"]', 'content', t.description);
+
+        setText('.skip-link', t.ui.skip);
+        setText('[data-ui="languageLabel"]', t.ui.languageLabel);
+        setText('.action-print span', t.ui.print);
+        setAttr('.action-print', 'aria-label', t.ui.printAria);
+        setText('.action-share span', t.ui.share);
+        setAttr('.action-share', 'aria-label', t.ui.shareAria);
+        setAttr('.profile__photo', 'alt', t.profileAlt);
+
+        setText('.header__headline', t.headerHeadline);
+        setLocation(t.location);
+        setText('#contact-title', t.contactTitle);
+        setText('#languages-title', t.languagesTitle);
+        setText('#skills-title', t.skillsTitle);
+        setText('#cert-title', t.certTitle);
+        setText('#education-title', t.educationTitle);
+        setAttr('.tagline', 'aria-label', t.summaryLabel);
+        setText('#experience-title', t.experienceTitle);
+        setText('#additional-title', t.additionalTitle);
+
+        setList('#languages-title + .plain-list li', t.languageItems, function (item, value) {
+          item.innerHTML = '';
+          item.appendChild(document.createTextNode(value[0] + ' '));
+          var span = document.createElement('span');
+          span.className = 'muted';
+          span.textContent = value[1];
+          item.appendChild(span);
+        });
+
+        setList('#skills-title + .skills dt', t.skillItems, function (item, value) {
+          item.textContent = value[0];
+        });
+        setList('#skills-title + .skills dd', t.skillItems, function (item, value) {
+          item.textContent = value[1];
+        });
+
+        setList('#education-title + .plain-list li', t.educationItems, function (item, value) {
+          item.innerHTML = '';
+          var strong = document.createElement('strong');
+          strong.textContent = value[0];
+          var span = document.createElement('span');
+          span.className = 'muted';
+          span.textContent = value[1];
+          item.appendChild(strong);
+          item.appendChild(document.createTextNode(' '));
+          item.appendChild(span);
+        });
+
+        setList('.tagline > p:not(.tagline__highlights)', t.summary, function (item, value) {
+          item.textContent = value;
+        });
+        setList('.tagline__highlights span:not(.tagline__sep)', t.highlights, function (item, value) {
+          item.textContent = value;
+        });
+
+        setList('.job', t.jobs, function (job, value) {
+          var title = job.querySelector('.job__title');
+          var meta = job.querySelector('.job__meta');
+          if (title) title.textContent = value.title;
+          if (meta) meta.textContent = value.meta;
+          var bullets = job.querySelectorAll('.job__bullets li');
+          value.bullets.forEach(function (bullet, index) {
+            if (bullets[index]) bullets[index].textContent = bullet;
+          });
+        });
+
+        setList('.earlier__list li', t.additional, function (item, value) {
+          item.textContent = value;
+        });
+        setText('.footer p', t.footer);
+
+        try {
+          localStorage.setItem('resumeLanguage', lang);
+        } catch (e) {}
+      }
 
       function announce(msg) {
         feedback.textContent = msg;
@@ -379,7 +849,8 @@
 
       btn.addEventListener('click', function () {
         var url = window.location.href;
-        var data = { title: document.title, text: 'Resume of Marcelo Lionço Mendes', url: url };
+        var currentLang = normalizeLang(languageSelect.value);
+        var data = { title: document.title, text: translations[currentLang].shareText, url: url };
 
         if (navigator.share) {
           navigator.share(data).catch(function () {});
@@ -387,13 +858,24 @@
         }
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(url).then(
-            function () { announce('Link copied.'); },
-            function () { announce('Copy the link from the address bar.'); }
+            function () { announce(translations[currentLang].copied); },
+            function () { announce(translations[currentLang].copyFallback); }
           );
           return;
         }
-        announce('Copy the link from the address bar.');
+        announce(translations[currentLang].copyFallback);
       });
+
+      languageSelect.addEventListener('change', function () {
+        applyLanguage(normalizeLang(languageSelect.value));
+      });
+
+      var queryLang = new URLSearchParams(window.location.search).get('lang');
+      var storedLang = '';
+      try {
+        storedLang = localStorage.getItem('resumeLanguage') || '';
+      } catch (e) {}
+      applyLanguage(normalizeLang(queryLang || storedLang || defaultLang));
     })();
   </script>
 </body>
